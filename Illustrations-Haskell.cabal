@@ -25,11 +25,14 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Data.Text.Utils
+      Example.TreeTraverse
   hs-source-dirs:
       src
   build-depends:
       base >=4.7 && <5
+    , containers
+    , text
   default-language: Haskell2010
 
 executable Illustrations-Haskell-exe
@@ -40,6 +43,7 @@ executable Illustrations-Haskell-exe
   build-depends:
       Illustrations-Haskell
     , base >=4.7 && <5
+    , text
   default-language: Haskell2010
 
 test-suite Illustrations-Haskell-test

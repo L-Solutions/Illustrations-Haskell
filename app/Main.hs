@@ -1,6 +1,12 @@
+{-# LANGUAGE OverloadedStrings #-}
+-- Version 2022-05-19T18:11-0400
+
 module Main where
 
-import Lib
+import           Data.Text
+import qualified Example.TreeTraverse as Ex1
 
 main :: IO ()
-main = someFunc
+main = do putStrLn "é"
+          Ex1.main
+

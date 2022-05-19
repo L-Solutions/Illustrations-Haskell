@@ -14,6 +14,9 @@ extra-source-files:
 # synopsis:            Short description of your package
 # category:            Web
 
+# Version
+# 2022-05-19T18:08-0400
+#
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
@@ -24,6 +27,9 @@ dependencies:
 
 library:
     source-dirs: src
+    dependencies:
+    - containers
+    - text
     when:        
     - condition: false        
       other-modules: Paths_Illustrations_Haskell
@@ -38,6 +44,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - Illustrations-Haskell
+    - text
     when:        
     - condition: false        
       other-modules: Paths_Illustrations_Haskell
