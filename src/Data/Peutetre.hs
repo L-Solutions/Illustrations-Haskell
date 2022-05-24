@@ -1,3 +1,16 @@
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  Data.Peutetre
+-- Copyright   :  Benoît Fraikin 2022
+-- License     :  BSD3
+--
+-- Maintainer  :  benoit.fraikin@usherbrooke.ca
+-- Stability   :  experimental
+-- Portability :  portable
+-- Version     :  2022-05-24T14:28-0400
+--
+-----------------------------------------------------------------------------
+
 module Data.Peutetre
     where
 
