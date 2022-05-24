@@ -25,6 +25,8 @@ source-repository head
 
 library
   exposed-modules:
+      Data.Liste
+      Data.Peutetre
       Data.Text.Utils
       Example.TreeTraverse
   hs-source-dirs:
