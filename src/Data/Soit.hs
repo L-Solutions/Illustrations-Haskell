@@ -17,10 +17,6 @@ module Data.Soit
 data Soit r a = Gauche r | Droite a
     deriving (Show, Eq, Read)
 
-fromList :: Monoid m => [a] -> Gauche m a
-fromList []    = Gauche mempty
-fromList (x:_) = Droite x
-
 fromEither :: Either r a -> Soit r a
 fromEither (Left x)  = Gauche x
 fromEither (Right x) = Droite x
@@ -29,15 +25,18 @@ instance Semigroup (Soit r a) where
     -- (<>) :: Soit r a -> Soit r a -> Soit r a
     -- Associativity
     --   (a <> b) <> c == a <> (b <> c)
-    (<>) = undefined
+    d@Droite{} <> _ = d
+    Gauche _   <> s = s
 
-instance Monoid (Soit r a) where
+{-
+instance Monoid a => Monoid (Soit r a) where
     -- mempty :: Soit r a
     -- Right identity
     --   x <> mempty = x
     -- Left identity
     --   mempty <> x = x
-    mempty = undefined
+    mempty = Droite mempty
+-}
 
 instance Functor (Soit r) where
     -- fmap :: (a -> b) -> Soit r a -> Soit r b
@@ -45,7 +44,8 @@ instance Functor (Soit r) where
     --   fmap id == id
     -- Composition
     --   fmap (f . g) == fmap f . fmap g
-    fmap f pe = undefined
+    fmap f (Droite x) = Droite $ f x
+    fmap _ (Gauche y) = Gauche y
 
 {-
     Monoid m
@@ -61,7 +61,8 @@ instance Foldable (Soit r) where
     --   foldMap f . fmap g = foldMap (f . g)
     -- Specifically for Monoid (Soit r a)
     --   foldMap id ls = fold ls = ls
-    foldMap f pe = undefined
+    foldMap f (Droite x) = f x
+    foldMap _ _          = mempty
 
 {-
     Applicative f
@@ -78,11 +79,12 @@ instance Traversable (Soit r) where
     --   traverse Identity = Identity
     -- Composition
     --   traverse (Compose . fmap g . f) = Compose . fmap (traverse g) . traverse f
-    traverse f pe = undefined
+    traverse f (Droite x) = pure Droite <*> f x
+    traverse _ (Gauche y) = pure $ Gauche y
 
 instance Applicative (Soit r) where
     -- pure  :: a -> Soit r a
-    pure x = undefined
+    pure = Droite
     -- (<*>) :: Soit r (a -> b) -> Soit r a -> Soit r b
     -- Identity
     --   pure id <*> v = v
@@ -92,11 +94,12 @@ instance Applicative (Soit r) where
     --   pure f <*> pure x = pure (f x)
     -- Interchange
     --   u <*> pure y = pure ($ y) <*> u
-    (<*>) = undefined
+    Droite f <*> d = fmap f d
+    Gauche x <*> _ = Gauche x
 
 instance Monad (Soit r) where
     -- return :: a -> Soit r a
-    return = undefined
+    return = pure
     -- (>>=)  :: Soit r a -> (a -> Soit r b) -> Soit r b
     -- Left identity
     --   return a >>= k = k a
@@ -104,6 +107,7 @@ instance Monad (Soit r) where
     --   m >>= return = m
     -- Associativity
     --   m >>= (\x -> k x >>= h) = (m >>= k) >>= h
-    (>>=) = undefined
+    Droite x >>= k = k x
+    Gauche x >>= _ = Gauche x
 
 

@@ -25,13 +25,15 @@ fromMaybe :: Maybe a -> Peutetre a
 fromMaybe Nothing  = Rien
 fromMaybe (Just x) = Juste x
 
-instance Semigroup (Peutetre a) where
+instance Monoid a => Semigroup (Peutetre a) where
     -- (<>) :: Peutetre a -> Peutetre a -> Peutetre a
     -- Associativity
     --   (a <> b) <> c == a <> (b <> c)
-    (<>) = undefined
+    Rien <> _ = Rien
+    _ <> Rien = Rien
+    Juste x <> Juste y = Juste $ x <> y
 
-instance Monoid (Peutetre a) where
+instance Monoid a => Monoid (Peutetre a) where
     -- mempty :: Peutetre a
     -- Right identity
     --   x <> mempty = x

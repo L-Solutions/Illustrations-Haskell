@@ -27,6 +27,7 @@ library
   exposed-modules:
       Data.Liste
       Data.Peutetre
+      Data.Soit
       Data.Text.Utils
       Example.TreeTraverse
   hs-source-dirs:
