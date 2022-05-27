@@ -7,7 +7,7 @@
 -- Maintainer  :  benoit.fraikin@usherbrooke.ca
 -- Stability   :  experimental
 -- Portability :  portable
--- Version     :  2022-05-24T14:28-0400
+-- Version     :  2022-05-27T09:22-0400
 --
 -----------------------------------------------------------------------------
 
@@ -25,13 +25,12 @@ fromMaybe :: Maybe a -> Peutetre a
 fromMaybe Nothing  = Rien
 fromMaybe (Just x) = Juste x
 
-instance Monoid a => Semigroup (Peutetre a) where
+instance Semigroup (Peutetre a) where
     -- (<>) :: Peutetre a -> Peutetre a -> Peutetre a
     -- Associativity
     --   (a <> b) <> c == a <> (b <> c)
-    Rien <> _ = Rien
-    _ <> Rien = Rien
-    Juste x <> Juste y = Juste $ x <> y
+    j@Juste{} <> _  = j
+    Rien      <> pe = pe
 
 instance Monoid a => Monoid (Peutetre a) where
     -- mempty :: Peutetre a
@@ -39,7 +38,7 @@ instance Monoid a => Monoid (Peutetre a) where
     --   x <> mempty = x
     -- Left identity
     --   mempty <> x = x
-    mempty = undefined
+    mempty = Rien
 
 instance Functor Peutetre where
     -- fmap :: (a -> b) -> Peutetre a -> Peutetre b
@@ -47,7 +46,8 @@ instance Functor Peutetre where
     --   fmap id == id
     -- Composition
     --   fmap (f . g) == fmap f . fmap g
-    fmap f pe = undefined
+    fmap f Rien      = Rien
+    fmap f (Juste x) = Juste $ f x
 
 {-
     Monoid m
@@ -63,7 +63,8 @@ instance Foldable Peutetre where
     --   foldMap f . fmap g = foldMap (f . g)
     -- Specifically for Monoid (Peutetre a)
     --   foldMap id ls = fold ls = ls
-    foldMap f pe = undefined
+    foldMap _ Rien      = mempty
+    foldMap f (Juste x) = f x
 
 {-
     Applicative f
@@ -80,7 +81,8 @@ instance Traversable Peutetre where
     --   traverse Identity = Identity
     -- Composition
     --   traverse (Compose . fmap g . f) = Compose . fmap (traverse g) . traverse f
-    traverse f pe = undefined
+    traverse _ Rien      = pure Rien
+    traverse f (Juste x) = Juste <$> f x
 
 instance Applicative Peutetre where
     -- pure  :: a -> Peutetre a
@@ -94,7 +96,8 @@ instance Applicative Peutetre where
     --   pure f <*> pure x = pure (f x)
     -- Interchange
     --   u <*> pure y = pure ($ y) <*> u
-    (<*>) = undefined
+    (<*>) Rien _       = Rien
+    (<*>) (Juste f) pe = fmap f pe
 
 instance Monad Peutetre where
     -- return :: a -> Peutetre a
@@ -106,6 +109,7 @@ instance Monad Peutetre where
     --   m >>= return = m
     -- Associativity
     --   m >>= (\x -> k x >>= h) = (m >>= k) >>= h
-    (>>=) = undefined
+    (>>=) Rien _      = Rien
+    (>>=) (Juste x) k = k x
 
 
