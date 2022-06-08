@@ -3,10 +3,25 @@
 
 module Main where
 
-import           Data.Text
-import qualified Example.TreeTraverse as Ex1
+import           Data.Text                               (Text (..))
+import           Data.Text.Utils                         (eol, putText)
+import qualified Example.Download                        as Ex1 (main)
+import qualified Example.TreeTraverse                    as Ex2 (main)
+import qualified Example.TwoMonadTransformerForSameMonad as Ex3 (main)
+
+entête :: Text
+entête =  "#######"                                                         <> eol
+       <> "#        #    #  ######  #    #  #####   #       ######   ####"  <> eol
+       <> "#         #  #   #       ##  ##  #    #  #       #       #"      <> eol
+       <> "#####      ##    #####   # ## #  #    #  #       #####    ####"  <> eol
+       <> "#          ##    #       #    #  #####   #       #            #" <> eol
+       <> "#         #  #   #       #    #  #       #       #       #    #" <> eol
+       <> "#######  #    #  ######  #    #  #       ######  ######   ####"  <> eol
 
 main :: IO ()
-main = do putStrLn "é"
+main = do putText entête
+          putText eol
           Ex1.main
+          Ex2.main
+          Ex3.main
 

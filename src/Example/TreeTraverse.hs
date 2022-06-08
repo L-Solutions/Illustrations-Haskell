@@ -45,7 +45,7 @@ forestTraverse :: Applicative f => (t -> f a) -> Forest t -> f (Forest a)
 forestTraverse g ts = sequenceA $ map (treeTraverse g) ts
 
 main :: IO ()
-main = do putStrLn "============= Exemples ============="
+main = do putStrLn "============= Example.UtilisationMTrans ============="
           putStrLn "--------------------------------------- Premier exemple"
           printF $ treeTraverse (++"0") $ Node "R" [t1]
           putStrLn "--------------------------------------- Deuxième exemple"

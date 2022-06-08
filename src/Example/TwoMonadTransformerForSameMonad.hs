@@ -50,3 +50,6 @@ j = Twice                        -- rewrap newtype
 
 instance MonadTrans Twice where lift = Twice . pure
 
+main :: IO ()
+main = do putStrLn "============= Example.TwoMonadTransformerForSameMonad ============="
+          putStrLn "ok"

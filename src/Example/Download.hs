@@ -19,9 +19,13 @@ import           Data.Conduit.Combinators     (sinkFile)
 import           Network.HTTP.Conduit         (parseRequest)
 import           Network.HTTP.Simple          (httpSink)
 
-downloadFile :: String -> IO ()
-downloadFile url = do
+downloadFile :: String -> String -> IO ()
+downloadFile url destination = do
   request <- parseRequest url
-  runResourceT $ httpSink request $ \_ -> sinkFile "tmpfile"
+  runResourceT $ httpSink request $ \_ -> sinkFile destination
 
+main :: IO ()
+main = do putStrLn "============= Example.Download ============="
+          downloadFile "https://stackoverflow.com/questions/72479926/download-file-from-url-with-haskell" "essai.html"
+          putStrLn "ok"
 

@@ -1,8 +1,7 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.34.4.
---
--- see: https://github.com/sol/hpack
+-- Version
+-- 2022-06-08T15:12-0400
 
 name:           Illustrations-Haskell
 version:        0.1.0.0
@@ -28,10 +27,9 @@ library
       Data.Liste
       Data.Peutetre
       Data.Soit
-      Data.Text.Utils
       Example.Download
-      Example.MonadTransformerPoint
       Example.TreeTraverse
+      Example.TwoMonadTransformerForSameMonad
   hs-source-dirs:
       src
   build-depends:
@@ -41,7 +39,6 @@ library
     , http-conduit
     , mtl
     , resourcet
-    , text
     , transformers
   default-language: Haskell2010
 
@@ -54,6 +51,7 @@ executable Illustrations-Haskell-exe
       Illustrations-Haskell
     , base >=4.7 && <5
     , text
+    , textdecoration
   default-language: Haskell2010
 
 test-suite Illustrations-Haskell-test
