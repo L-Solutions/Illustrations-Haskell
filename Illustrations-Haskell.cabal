@@ -29,13 +29,20 @@ library
       Data.Peutetre
       Data.Soit
       Data.Text.Utils
+      Example.Download
+      Example.MonadTransformerPoint
       Example.TreeTraverse
   hs-source-dirs:
       src
   build-depends:
       base >=4.7 && <5
+    , conduit
     , containers
+    , http-conduit
+    , mtl
+    , resourcet
     , text
+    , transformers
   default-language: Haskell2010
 
 executable Illustrations-Haskell-exe

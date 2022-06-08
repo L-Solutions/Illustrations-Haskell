@@ -15,7 +15,7 @@ extra-source-files:
 # category:            Web
 
 # Version
-# 2022-05-19T18:08-0400
+# 2022-06-02T15:25-0400
 #
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
@@ -28,8 +28,13 @@ dependencies:
 library:
     source-dirs: src
     dependencies:
+    - conduit
     - containers
+    - http-conduit
+    - mtl
+    - resourcet
     - text
+    - transformers
     when:        
     - condition: false        
       other-modules: Paths_Illustrations_Haskell
