@@ -1,7 +1,7 @@
 cabal-version: 1.12
 
 -- Version
--- 2022-06-08T15:12-0400
+-- 2022-08-09T16:11-0400
 
 name:           Illustrations-Haskell
 version:        0.1.0.0
@@ -50,6 +50,8 @@ executable Illustrations-Haskell-exe
   build-depends:
       Illustrations-Haskell
     , base >=4.7 && <5
+    , say 
+    , stm 
     , text
     , textdecoration
   default-language: Haskell2010
