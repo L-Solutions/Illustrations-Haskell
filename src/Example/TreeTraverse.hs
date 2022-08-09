@@ -2,14 +2,14 @@
 
 -----------------------------------------------------------------------------
 -- |
--- Module      :  Example.UtilisationMTrans
+-- Module      :  Example.TreeTraverse
 -- Copyright   :  Benoît Fraikin 2022
 -- License     :  BSD3
 --
 -- Maintainer  :  benoit.fraikin@usherbrooke.ca
 -- Stability   :  experimental
 -- Portability :  portable
--- Version     :  2022-05-19T18:16-0400
+-- Version     :  2022-07-28T09:48-0400
 --
 -- Exemple de l'impact et de l'importance des transformateur de monades
 --
@@ -45,7 +45,7 @@ forestTraverse :: Applicative f => (t -> f a) -> Forest t -> f (Forest a)
 forestTraverse g ts = sequenceA $ map (treeTraverse g) ts
 
 main :: IO ()
-main = do putStrLn "============= Example.UtilisationMTrans ============="
+main = do putStrLn "============= Example.TreeTraverse ============="
           putStrLn "--------------------------------------- Premier exemple"
           printF $ treeTraverse (++"0") $ Node "R" [t1]
           putStrLn "--------------------------------------- Deuxième exemple"
