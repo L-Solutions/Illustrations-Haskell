@@ -1,3 +1,19 @@
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  Example.STMEssai
+-- Copyright   :  Benoît Fraikin 2022
+-- License     :  BSD3
+--
+-- Maintainer  :  benoit.fraikin@usherbrooke.ca
+-- Stability   :  experimental
+-- Portability :  portable
+-- Version     :  2022-08-11T11:15-0400
+--
+-----------------------------------------------------------------------------
+
+module Example.STMEssai
+    where
+
 import           Control.Concurrent
 import           Control.Concurrent.STM
 import           Control.Monad          (forever, replicateM_)
